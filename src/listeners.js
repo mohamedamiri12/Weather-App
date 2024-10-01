@@ -7,14 +7,18 @@ const chooseDegreeListener = () => {
         console.log(chooseButton.innerHTML)
         if(chooseButton.innerHTML == "°C") {
             let data = await getWeatherData(searchInput.value || undefined,"us")
-            chooseButton.innerHTML = "°F"
-            displayCityInfo(data,chooseButton.innerHTML)
-            showSevenDayForecast(data.days,chooseButton.innerHTML)
+            if(data){
+                chooseButton.innerHTML = "°F"
+                displayCityInfo(data,chooseButton.innerHTML)
+                showSevenDayForecast(data.days,chooseButton.innerHTML)
+            }
         } else {
             let data = await getWeatherData(searchInput.value || undefined,"metric")
-            chooseButton.innerHTML = "°C"
-            displayCityInfo(data,chooseButton.innerHTML)
-            showSevenDayForecast(data.days,chooseButton.innerHTML)
+            if(data){
+                chooseButton.innerHTML = "°C"
+                displayCityInfo(data,chooseButton.innerHTML)
+                showSevenDayForecast(data.days,chooseButton.innerHTML)
+            }
         }
     })
 }
@@ -26,8 +30,10 @@ const searchDegreeListener = () => {
     let degree = (chooseDegreeButton.innerHTML == "°C") ? "metric" : "us"
     searchButton.addEventListener('click',async (e) => {
         let data = await getWeatherData(searchInput.value,degree)
-        displayCityInfo(data,chooseDegreeButton.innerHTML)
-        showSevenDayForecast(data.days,chooseDegreeButton.innerHTML)
+        if(data){
+            displayCityInfo(data,chooseDegreeButton.innerHTML)
+            showSevenDayForecast(data.days,chooseDegreeButton.innerHTML)
+        }
     })
 }
 
